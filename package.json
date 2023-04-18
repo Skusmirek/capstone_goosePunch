@@ -1,0 +1,19 @@
+{
+  "name": "capstone_goosepunch",
+  "version": "1.0.0",
+  "description": "Fight geese. A lot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrispityBits/capstone_goosePunch.git"
+  },
+  "author": "Seth, Isaiah, Peyton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CrispityBits/capstone_goosePunch/issues"
+  },
+  "homepage": "https://github.com/CrispityBits/capstone_goosePunch#readme"
+}
