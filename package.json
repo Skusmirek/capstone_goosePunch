@@ -4,7 +4,6 @@
   "description": "Fight geese. A lot.",
   "main": "index.js",
   "scripts": {
-    "test": "npm start"
   },
   "repository": {
     "type": "git",
