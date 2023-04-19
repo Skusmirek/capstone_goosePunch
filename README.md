@@ -3,4 +3,12 @@
 
 
 ## Installation
-### Goose Punch will be started simply by opening index.html
+### Goose Punch will not be using Node. So you can either just open index.html or using the following Render link to access the game: https://goose-punch.onrender.com/
+
+
+
+
+
+
+
+
