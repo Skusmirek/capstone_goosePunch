@@ -3,4 +3,4 @@
 
 
 ## Installation
-### Goose Punch will use the site Render in order to be played. The link to this is not currently available but will be provided later.
+### Goose Punch will be started simply by opening index.html
