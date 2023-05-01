@@ -73,4 +73,5 @@ $(function() {
   $fightStart.fadeOut(1).delay(6500).fadeIn(300).fadeOut(1000);
 
 
+  
 });
