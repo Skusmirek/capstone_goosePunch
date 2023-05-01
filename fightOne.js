@@ -33,4 +33,44 @@ $(function() {
 
   //Fade in the arena after the intro image is gone
   $arena.delay(5000).fadeIn(500);
+
+
+  // Display the default image for Glass Joose
+
+  //$glassJoose = 
+
+  // Position Glass Joose
+
+  //$glassJoose.css({
+
+  // })
+
+
+
+  // Display the default image for Little Rac
+
+  // $littleRac = 
+
+  // Position Little Rac
+
+  // $littleRac.css({
+
+  // })
+
+
+  // Notify the player that the fight has started
+
+  $fightStart = $('#fightStartImage');
+  $fightStart.css({
+    width: '100%',
+    height: '30%',
+    position: 'fixed',
+    left: 0,
+    top: 0
+  })
+
+
+  $fightStart.fadeOut(1).delay(6500).fadeIn(300).fadeOut(1000);
+
+
 });
