@@ -1,0 +1,16 @@
+#background {
+  position: relative;
+  z-index: 1;
+  scale: 3;
+  display: block;
+  margin: auto;
+  top: 400px;
+}
+
+#myImage {
+  position: relative;
+  z-index: 2;
+  margin:auto;
+  display: block;
+  top: 500px;
+}
