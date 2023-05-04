@@ -69,7 +69,7 @@ $(function() {
   })
 
 
-  $fightStart.fadeOut(1).delay(6500).fadeIn(300).fadeOut(1000);
+  $fightStart.fadeOut(1).delay(6500).fadeIn(1200).fadeOut(1000);
 
 
   
