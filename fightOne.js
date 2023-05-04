@@ -79,8 +79,46 @@ $(function() {
   })
 
 
-  $fightStart.fadeOut(1).delay(6500).fadeIn(1200).fadeOut(1000);
+  $fightStart.fadeOut(1).delay(6500).fadeIn(1200).fadeOut(1000, function() {
+    // Fight has started
+
+    // Set and display the health
+    $health = $('#health');
+    $health.css({
+      position: 'absolute',
+      left: '1%',
+      top: '.1%',
+      fontSize: '4rem',
+      fontFamily: "Impact",
+      display: 'block'
+    })
+
+    $healthAmount = 5;
+    $healthAmountElem = $('#healthAmount');
+    $healthAmountElem.text($healthAmount).css({
+      position: 'absolute',
+      left: '10.75%',
+      top: '.1%',
+      fontSize: '4rem',
+      fontFamily: "Impact",
+      display: 'block'
+    })
+
+    
+
+
+
+
+
+
+  });
 
 
   
+
+
+
+
+
+
 });
