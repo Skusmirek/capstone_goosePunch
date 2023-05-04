@@ -37,25 +37,35 @@ $(function() {
 
   // Display the default image for Glass Joose
 
-  //$glassJoose = 
+  $glassJoose = $('#glassJoose');
+  $glassJoose.delay(5700).fadeIn(500);
 
   // Position Glass Joose
 
-  //$glassJoose.css({
-
-  // })
+  $glassJoose.css({
+    position: 'absolute',
+    left: '47%',
+    top: '45%',
+    width: '6%',
+    height: '13%'
+   })
 
 
 
   // Display the default image for Little Rac
 
-  // $littleRac = 
+   $littleRac = $('#littleRac');
+   $littleRac.delay(5700).fadeIn(500);
 
   // Position Little Rac
 
-  // $littleRac.css({
-
-  // })
+  $littleRac.css({
+    position: 'absolute',
+    left: '47%',
+    top: '65%',
+    width: '6%',
+    height: '13%'
+   })
 
 
   // Notify the player that the fight has started
