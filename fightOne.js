@@ -59,7 +59,6 @@ $(function() {
 
 
   // Notify the player that the fight has started
-
   $fightStart = $('#fightStartImage');
   $fightStart.css({
     width: '100%',
