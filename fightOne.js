@@ -37,29 +37,38 @@ $(function() {
 
   // Display the default image for Glass Joose
 
-  //$glassJoose = 
+  $glassJoose = $('#glassJoose');
+  $glassJoose.delay(5700).fadeIn(500);
 
   // Position Glass Joose
 
-  //$glassJoose.css({
-
-  // })
+  $glassJoose.css({
+    position: 'absolute',
+    left: '47%',
+    top: '45%',
+    width: '6%',
+    height: '13%'
+   })
 
 
 
   // Display the default image for Little Rac
 
-  // $littleRac = 
+   $littleRac = $('#littleRac');
+   $littleRac.delay(5700).fadeIn(500);
 
   // Position Little Rac
 
-  // $littleRac.css({
-
-  // })
+  $littleRac.css({
+    position: 'absolute',
+    left: '47%',
+    top: '65%',
+    width: '6%',
+    height: '13%'
+   })
 
 
   // Notify the player that the fight has started
-
   $fightStart = $('#fightStartImage');
   $fightStart.css({
     width: '100%',
@@ -70,8 +79,46 @@ $(function() {
   })
 
 
-  $fightStart.fadeOut(1).delay(6500).fadeIn(300).fadeOut(1000);
+  $fightStart.fadeOut(1).delay(6500).fadeIn(1200).fadeOut(1000, function() {
+    // Fight has started
+
+    // Set and display the health
+    $health = $('#health');
+    $health.css({
+      position: 'absolute',
+      left: '1%',
+      top: '.1%',
+      fontSize: '4rem',
+      fontFamily: "Impact",
+      display: 'block'
+    })
+
+    $healthAmount = 5;
+    $healthAmountElem = $('#healthAmount');
+    $healthAmountElem.text($healthAmount).css({
+      position: 'absolute',
+      left: '10.75%',
+      top: '.1%',
+      fontSize: '4rem',
+      fontFamily: "Impact",
+      display: 'block'
+    })
+
+    
+
+
+
+
+
+
+  });
 
 
   
+
+
+
+
+
+
 });
