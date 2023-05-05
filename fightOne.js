@@ -78,7 +78,7 @@ $(function() {
     top: 0
   })
 
-
+  // Display fight banner (combat starts after this)
   $fightStart.fadeOut(1).delay(6500).fadeIn(1200).fadeOut(1000, function() {
     // Fight has started
 
@@ -105,6 +105,66 @@ $(function() {
     })
 
     
+
+    // Enemy health
+    $enemyHealth = 5;
+
+
+    // Enemy movement
+    function enemyMovement() {
+      // Generate a random number between 1 and 10
+      const randomNumber = Math.floor(Math.random() * 10) + 1;
+    
+      // Check if the random number is 1 or 2
+      if (randomNumber === 1) {
+        // If it's 1, move the enemy up and down and then back to its original position
+
+        // This is the enemy attacking
+        $glassJoose.animate({ top: "-=20px" }, 500)
+                  .animate({ top: "+=80px" }, 500)
+                  .animate({ top: "-=60px" }, 500, function() {
+                    // If the player isn't dodging, they take damage
+                    if (!$playerDodging) {
+                      $healthAmount -= 1;
+                    }
+                  });
+      } else if (randomNumber === 2) {
+        // If it's 2, move the enemy up and then back to its original position
+
+        // This is the enemy dodging
+        $glassJoose.animate({ top: "-=20px" }, 500, enemyDodging())
+        .delay(500)
+        .animate({ top: "+=20px" }, 500, enemyStopDodging());
+  }
+  }
+    
+    // Run the enemyMovement function every half a second (500 milliseconds)
+    setInterval(enemyMovement, 500);
+    
+    function enemyDodging() {
+      $enemyDodging = true;
+    }
+
+    function enemyStopDodging() {
+      $enemyDodging = false;
+    }
+  
+
+    // TODO: Add the player's movements
+    // Maybe handle it similarly to the enemy's movements? 
+    // Not the random number stuff, but for the structure of animations and when it registers as a hit or dodge?
+    // Hoping that works, I'll set up the dodge functions below
+
+    // Feel free to change anything. I don't know if the dodging works well or not, I just hope it does cause it's pretty simple
+
+    
+    function playerDodging() {
+      $playerDodging = true;
+    }
+
+    function playerStopDodging() {
+      $playerDodging = false;
+    }
     
 
 
@@ -112,14 +172,8 @@ $(function() {
 
 
 
+
+
   });
-
-
-  
-
-
-
-
-
 
 });
