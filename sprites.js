@@ -1,4 +1,4 @@
-var image = document.getElementById('myImage');
+var image = document.getElementById('littleRac');
 var originalSrc = image.src;
 var newSrc = '/images/punchA.jpg';
 var newSrc2 = '/images/punchD.jpg';

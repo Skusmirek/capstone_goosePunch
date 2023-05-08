@@ -1,7 +1,7 @@
 $(function() {
   
   // Get reference to introduction image and image used for the arena
-  $introImage = $('#introImageOne');
+  $introImage = $('#introImageThree');
   $arena = $('#arenaImage');
 
 
@@ -35,14 +35,14 @@ $(function() {
   $arena.delay(5000).fadeIn(500);
 
 
-  // Display the default image for Glass Joose
+  // Display the default image for Macho 
 
-  $glassJoose = $('#glassJoose');
-  $glassJoose.delay(5700).fadeIn(500);
+  $susanGoose = $('#susanGoose');
+  $susanGoose.delay(5700).fadeIn(500);
 
-  // Position Glass Joose
+  // Position Macho
 
-  $glassJoose.css({
+  $susanGoose.css({
     position: 'absolute',
     left: '47%',
     top: '45%',
@@ -120,7 +120,7 @@ $(function() {
         // If it's 1, move the enemy up and down and then back to its original position
 
         // This is the enemy attacking
-        $glassJoose.animate({ top: "-=20px" }, 500)
+        $susanGoose.animate({ top: "-=20px" }, 500)
                   .animate({ top: "+=80px" }, 500)
                   .animate({ top: "-=60px" }, 500, function() {
                     // If the player isn't dodging, they take damage
@@ -132,7 +132,7 @@ $(function() {
         // If it's 2, move the enemy up and then back to its original position
 
         // This is the enemy dodging
-        $glassJoose.animate({ top: "-=20px" }, 500, enemyDodging())
+        $susanGoose.animate({ top: "-=20px" }, 500, enemyDodging())
         .delay(500)
         .animate({ top: "+=20px" }, 500, enemyStopDodging());
   }
@@ -148,64 +148,24 @@ $(function() {
     function enemyStopDodging() {
       $enemyDodging = false;
     }
-
-    
   
 
-    // TODO: Add the player's movements
-    // Maybe handle it similarly to the enemy's movements? 
-    // Not the random number stuff, but for the structure of animations and when it registers as a hit or dodge?
-    // Hoping that works, I'll set up the dodge functions below
-
-    // Feel free to change anything. I don't know if the dodging works well or not, I just hope it does cause it's pretty simple
-
     
-    var originalLeft = $littleRac.position().left;
-
-    // Function to move Little Rac
-    function moveLittleRac(direction) {
-      var currentLeft = $littleRac.position().left;
-      var moveAmount = 50;
     
-      if (direction === "left" && currentLeft - moveAmount >= 0) {
-        $littleRac.animate({ left: "-=" + moveAmount }, 100, function() {
-          $littleRac.animate({ left: originalLeft }, 100);
-        });
-      } else if (direction === "right" && currentLeft + $littleRac.width() + moveAmount <= $arena.width()) {
-        $littleRac.animate({ left: "+=" + moveAmount }, 100, function() {
-          $littleRac.animate({ left: originalLeft }, 100);
-        });
-      }
-    }
-    
-    // Set up keydown event listener
-    var keyPressed = {};
-    $(document).keydown(function(event) {
-      var key = event.key;
-      if (!keyPressed[key]) {
-        keyPressed[key] = true;
-        if (key === "q") {
-          moveLittleRac("left");
-        } else if (key === "e") {
-          moveLittleRac("right");
-        }
-        setTimeout(function() {
-          keyPressed[key] = false;
-        }, 100);
-      }
-    });
-
-    // NOTE: The above function may be refactored to only move up for punching and down for ducking
-
-    // Add to other two fights
-
     function playerDodging() {
       $playerDodging = true;
     }
-    
+
     function playerStopDodging() {
       $playerDodging = false;
     }
+    
+
+
+
+
+
+
 
 
   });
