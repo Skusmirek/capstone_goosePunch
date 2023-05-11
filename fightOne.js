@@ -99,7 +99,7 @@ $(function() {
     $healthAmountElem.text($healthAmount);
 
       // Enemy health
-      $enemyHealthAmount = 10;
+      $enemyHealthAmount = 500;
       $enemyHealthElem = $('#enemyHealth');
       $enemyHealthElem.text("Enemy: " + $enemyHealthAmount);
       $enemyHealthElem.css({
@@ -114,7 +114,7 @@ $(function() {
     // Enemy movement
     function enemyMovement() {
       // Generate a random number between 1 and 10
-      const randomNumber = Math.floor(Math.random() * 5) + 1;
+      const randomNumber = Math.floor(Math.random() * 10) + 1;
     
       // Check if the random number is 1 or 2
       if (randomNumber === 1) {
