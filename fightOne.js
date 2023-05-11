@@ -1,4 +1,8 @@
 $(function() {
+
+  // Global Variables
+  isRacAttacking = false;
+  isRacBlocking = false;
   
   // Get reference to introduction image and image used for the arena
   $introImage = $('#introImageOne');
@@ -45,7 +49,7 @@ $(function() {
   $glassJoose.css({
     position: 'absolute',
     left: '47%',
-    top: '45%',
+    top: '32%',
     width: '175px',
     height: '200px'
    })
@@ -62,7 +66,7 @@ $(function() {
   $littleRac.css({
     position: 'absolute',
     left: '47.5%',
-    top: '65%',
+    top: '62%',
     width: '150px',
     height: '120px'
 })
@@ -94,22 +98,11 @@ $(function() {
       display: 'block'
     })
 
-    $healthAmount = 5;
+    $healthAmount = 1000;
     $healthAmountElem.text($healthAmount);
 
-    function playerDodging() {
-      $playerDodging = true;
-    }
-    
-    function playerStopDodging() {
-      $playerDodging = false;
-    }
-
-    
-
     // Enemy health
-    $enemyHealth = 5;
-
+    $enemyHealth = 1000;
 
     // Enemy movement
     function enemyMovement() {
@@ -123,17 +116,7 @@ $(function() {
         // This is the enemy attacking
         $glassJoose.animate({ top: "-=20px" }, 500)
                   .animate({ top: "+=80px" }, 500)
-                  .animate({ top: "-=60px" }, 500, function() {
-                    // If the player isn't dodging, they take damage
-                    if (!$playerDodging) {
-                      $healthAmount -= 1;
-                      $healthAmountElem.text($healthAmount);
-                      if ($healthAmount == 0) {
-                        window.location.href = "gameOver.html";
-                        //$.getScript("gameOver.js");
-                      }
-                    }
-                  });
+                  .animate({ top: "-=60px" }, 500);
       } else if (randomNumber === 2) {
         // If it's 2, move the enemy up and then back to its original position
 
@@ -155,6 +138,33 @@ $(function() {
       $enemyDodging = false;
     }
 
+    function enemyOverlap() {
+            // Get the player and enemy elements
+      var $player = $('#glassJoose');
+      var $enemy = $('#littleRac');
+
+      // Get the positions of the player and enemy elements
+      var playerPos = $player.offset();
+      var enemyPos = $enemy.offset();
+
+      // Check if the player and enemy elements overlap
+      if (playerPos.left < enemyPos.left + $enemy.width() && 
+          playerPos.left + $player.width() > enemyPos.left && 
+          playerPos.top < enemyPos.top + $enemy.height() && 
+          playerPos.top + $player.height() > enemyPos.top &&
+          isRacBlocking == false && isRacAttacking == false) {
+        // Player and enemy are overlapping AND isRacAttacking and isRacBlocking are false, player takes damage
+        $healthAmount -= 1;
+        $healthAmountElem.text($healthAmount);
+        if ($healthAmount == 0) {
+          window.location.href = "gameOver.html";
+        }
+      }
+        console.log(isRacAttacking);
+    }
+    // Call enemyOverlap every 50 milliseconds
+    setInterval(enemyOverlap, 50);
+
     
   
 
@@ -172,17 +182,20 @@ $(function() {
     function moveLittleRac(direction) {
       var currentTop = $littleRac.position().top;
       var moveAmount = 100;
-      $playerDodging = false;
     
       if (direction === "up" && currentTop - moveAmount >= 0) {
-        $littleRac.animate({ top: "-=" + moveAmount }, 100, function() {
-          $littleRac.animate({ top: originalTop }, 100);
+        isRacAttacking = true;
+        $littleRac.animate({ top: "-=" + moveAmount }, 350, function() {
+          $littleRac.animate({ top: originalTop }, 350, function() {
+            isRacAttacking = false;
+          });
         });
       } else if (direction === "down" && currentTop + $littleRac.height() + moveAmount <= $arena.height()) {
-        $littleRac.animate({ top: "+=" + moveAmount }, 200, function() {
-          playerDodging();
-          $littleRac.animate({ top: originalTop }, 200);
-          playerStopDodging();
+        isRacBlocking = true;
+        $littleRac.animate({ top: "+=" + moveAmount }, 350, function() {
+          $littleRac.animate({ top: originalTop }, 350, function() {
+            isRacBlocking = false;
+          });
         });
       }
     }
