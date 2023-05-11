@@ -1,0 +1,22 @@
+* {
+  overflow: hidden;
+}
+
+body {
+  background-image: url("/images/instructionScreen.png");
+  /* background-size: 100% 100%; */
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+}
+
+#startFight {
+  position: absolute;
+  left: 35%;
+  top: 22%;
+  /* transform: translate(-50%, -50%); */
+  border-radius: 20%;
+  color: lime;
+  background-color: rgb(141, 5, 141);
+  padding: 1.25em;
+  font-size: 2em;
+}
