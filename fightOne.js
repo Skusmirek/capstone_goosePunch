@@ -5,7 +5,7 @@ $(function() {
   $arena = $('#arenaImage');
 
 
-  $arena.fadeOut(.01)
+  $arena.fadeOut(.01);
 
   $introImage.fadeOut(.01);
 
@@ -97,7 +97,13 @@ $(function() {
     $healthAmount = 5;
     $healthAmountElem.text($healthAmount);
 
-   
+    function playerDodging() {
+      $playerDodging = true;
+    }
+    
+    function playerStopDodging() {
+      $playerDodging = false;
+    }
 
     
 
@@ -108,7 +114,7 @@ $(function() {
     // Enemy movement
     function enemyMovement() {
       // Generate a random number between 1 and 10
-      const randomNumber = Math.floor(Math.random() * 10) + 1;
+      const randomNumber = Math.floor(Math.random() * 5) + 1;
     
       // Check if the random number is 1 or 2
       if (randomNumber === 1) {
@@ -121,6 +127,11 @@ $(function() {
                     // If the player isn't dodging, they take damage
                     if (!$playerDodging) {
                       $healthAmount -= 1;
+                      $healthAmountElem.text($healthAmount);
+                      if ($healthAmount == 0) {
+                        window.location.href = "gameOver.html";
+                        //$.getScript("gameOver.js");
+                      }
                     }
                   });
       } else if (randomNumber === 2) {
@@ -161,14 +172,17 @@ $(function() {
     function moveLittleRac(direction) {
       var currentTop = $littleRac.position().top;
       var moveAmount = 100;
+      $playerDodging = false;
     
       if (direction === "up" && currentTop - moveAmount >= 0) {
         $littleRac.animate({ top: "-=" + moveAmount }, 100, function() {
           $littleRac.animate({ top: originalTop }, 100);
         });
       } else if (direction === "down" && currentTop + $littleRac.height() + moveAmount <= $arena.height()) {
-        $littleRac.animate({ top: "+=" + moveAmount }, 100, function() {
-          $littleRac.animate({ top: originalTop }, 100);
+        $littleRac.animate({ top: "+=" + moveAmount }, 200, function() {
+          playerDodging();
+          $littleRac.animate({ top: originalTop }, 200);
+          playerStopDodging();
         });
       }
     }
@@ -203,14 +217,10 @@ $(function() {
 
     // Add to other two fights
 
-    function playerDodging() {
-      $playerDodging = true;
-    }
     
-    function playerStopDodging() {
-      $playerDodging = false;
-    }
 
+
+    
 
   });
 
