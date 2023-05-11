@@ -187,16 +187,17 @@ $(function() {
       }
     }
     
+    
     // Set up keydown event listener
     var keyPressed = {};
     $(document).keydown(function(event) {
       var key = event.key;
       if (!keyPressed[key]) {
         keyPressed[key] = true;
-        if (key === "w") {
+        if (key === "ArrowUp") {
           moveLittleRac("up");
           $littleRac.attr("src", "images/littleRac-2.png");
-        } else if (key === "s") {
+        } else if (key === "ArrowDown") {
           moveLittleRac("down");
         }
         setTimeout(function() {
@@ -208,7 +209,7 @@ $(function() {
 
     $(document).keyup(function(event) {
       var key = event.key;
-      if (key === "w") {
+      if (key === "ArrowUp") {
         $littleRac.attr("src", "images/littleRac.png"); 
       }
     });
