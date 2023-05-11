@@ -1,11 +1,15 @@
 $(function() {
+
+  // Global Variables
+  isRacAttacking = false;
+  isRacBlocking = false;
   
   // Get reference to introduction image and image used for the arena
   $introImage = $('#introImageTwo');
   $arena = $('#arenaImage');
 
 
-  $arena.fadeOut(.01)
+  $arena.fadeOut(.01);
 
   $introImage.fadeOut(.01);
 
@@ -35,22 +39,20 @@ $(function() {
   $arena.delay(5000).fadeIn(500);
 
 
-  // Display the default image for Macho 
+  // Display the default image for Enemy two
 
   $superMachoGoose = $('#superMachoGoose');
   $superMachoGoose.delay(5700).fadeIn(500);
 
-  // Position Macho
+  // Position Enemy two
 
   $superMachoGoose.css({
     position: 'absolute',
     left: '47%',
-    top: '45%',
-    width: '6%',
-    height: '13%'
+    top: '32%',
+    width: '175px',
+    height: '200px'
    })
-
-
 
   // Display the default image for Little Rac
 
@@ -61,12 +63,11 @@ $(function() {
 
   $littleRac.css({
     position: 'absolute',
-    left: '47%',
-    top: '65%',
-    width: '6%',
-    height: '13%'
-   })
-
+    left: '47.5%',
+    top: '62%',
+    width: '150px',
+    height: '120px'
+})
 
   // Notify the player that the fight has started
   $fightStart = $('#fightStartImage');
@@ -84,6 +85,7 @@ $(function() {
 
     // Set and display the health
     $health = $('#health');
+    $healthAmountElem = $('#healthAmount');
     $health.css({
       position: 'absolute',
       left: '1%',
@@ -93,27 +95,26 @@ $(function() {
       display: 'block'
     })
 
-    $healthAmount = 5;
-    $healthAmountElem = $('#healthAmount');
-    $healthAmountElem.text($healthAmount).css({
-      position: 'absolute',
-      left: '10.75%',
-      top: '.1%',
-      fontSize: '4rem',
-      fontFamily: "Impact",
-      display: 'block'
-    })
+    $healthAmount = 1000;
+    $healthAmountElem.text($healthAmount);
 
-    
-
-    // Enemy health
-    $enemyHealth = 5;
-
+      // Enemy health
+      $enemyHealthAmount = 700;
+      $enemyHealthElem = $('#enemyHealth');
+      $enemyHealthElem.text("Enemy: " + $enemyHealthAmount);
+      $enemyHealthElem.css({
+        position: 'absolute',
+        left: '75%',
+        top: '.1%',
+        fontSize: '4rem',
+        fontFamily: "Impact",
+        display: 'block'
+      })
 
     // Enemy movement
     function enemyMovement() {
       // Generate a random number between 1 and 10
-      const randomNumber = Math.floor(Math.random() * 10) + 1;
+      const randomNumber = Math.floor(Math.random() * 7) + 1;
     
       // Check if the random number is 1 or 2
       if (randomNumber === 1) {
@@ -122,12 +123,7 @@ $(function() {
         // This is the enemy attacking
         $superMachoGoose.animate({ top: "-=20px" }, 500)
                   .animate({ top: "+=80px" }, 500)
-                  .animate({ top: "-=60px" }, 500, function() {
-                    // If the player isn't dodging, they take damage
-                    if (!$playerDodging) {
-                      $healthAmount -= 1;
-                    }
-                  });
+                  .animate({ top: "-=60px" }, 500);
       } else if (randomNumber === 2) {
         // If it's 2, move the enemy up and then back to its original position
 
@@ -148,25 +144,106 @@ $(function() {
     function enemyStopDodging() {
       $enemyDodging = false;
     }
-  
 
-    
-    
-    function playerDodging() {
-      $playerDodging = true;
+    function enemyOverlap() {
+            // Get the player and enemy elements
+      var $player = $('#superMachoGoose');
+      var $enemy = $('#littleRac');
+
+      // Get the positions of the player and enemy elements
+      var playerPos = $player.offset();
+      var enemyPos = $enemy.offset();
+
+      // Check if the player and enemy elements overlap
+      if (playerPos.left < enemyPos.left + $enemy.width() && 
+          playerPos.left + $player.width() > enemyPos.left && 
+          playerPos.top < enemyPos.top + $enemy.height() && 
+          playerPos.top + $player.height() > enemyPos.top &&
+          isRacBlocking == false && isRacAttacking == false) {
+        // Player and enemy are overlapping AND isRacAttacking and isRacBlocking are false, player takes damage
+        $healthAmount -= 1;
+        $healthAmountElem.text($healthAmount);
+        if ($healthAmount == 0) {
+          window.location.href = "gameOver.html";
+        }
+      }
+
+//Subtract from enemy's health
+      if (playerPos.left < enemyPos.left + $enemy.width() && 
+      playerPos.left + $player.width() > enemyPos.left && 
+      playerPos.top < enemyPos.top + $enemy.height() && 
+      playerPos.top + $player.height() > enemyPos.top && isRacAttacking == true) {
+
+      $enemyHealthAmount -=1;
+      $enemyHealthElem.text("Enemy: " + $enemyHealthAmount);
+        if($enemyHealthAmount == 0) {
+          window.location.href = "fightThree.html";
+        }
+      }
+
     }
+    // Call enemyOverlap every 50 milliseconds
+    setInterval(enemyOverlap, 50);
+    
+    var originalTop = $littleRac.position().top;
 
-    function playerStopDodging() {
-      $playerDodging = false;
+    // Function to move Little Rac
+    function moveLittleRac(direction) {
+      var currentTop = $littleRac.position().top;
+      var moveAmount = 100;
+    
+      if (direction === "up" && currentTop - moveAmount >= 0) {
+        isRacAttacking = true;
+        $littleRac.animate({ top: "-=" + moveAmount }, 350, function() {
+          $littleRac.animate({ top: originalTop }, 350, function() {
+            isRacAttacking = false;
+          });
+        });
+      } else if (direction === "down" && currentTop + $littleRac.height() + moveAmount <= $arena.height()) {
+        isRacBlocking = true;
+        $littleRac.animate({ top: "+=" + moveAmount }, 350, function() {
+          $littleRac.animate({ top: originalTop }, 350, function() {
+            isRacBlocking = false;
+          });
+        });
+      }
     }
+    
+    
+    // Set up keydown event listener
+    var keyPressed = {};
+    $(document).keydown(function(event) {
+      var key = event.key;
+      if (!keyPressed[key]) {
+        keyPressed[key] = true;
+        if (key === "ArrowUp") {
+          moveLittleRac("up");
+          $littleRac.attr("src", "images/littleRac-2.png");
+        } else if (key === "ArrowDown") {
+          moveLittleRac("down");
+        }
+        setTimeout(function() {
+          keyPressed[key] = false;
+        }, 500);
+      }
+    });
+
+
+    $(document).keyup(function(event) {
+      var key = event.key;
+      if (key === "ArrowUp") {
+        $littleRac.attr("src", "images/littleRac.png"); 
+      }
+    });
+
+    // NOTE: The above function may be refactored to only move up for punching and down for ducking
+
+    // Add to other two fights
+
     
 
 
-
-
-
-
-
+    
 
   });
 
