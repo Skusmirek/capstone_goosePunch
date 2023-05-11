@@ -46,8 +46,8 @@ $(function() {
     position: 'absolute',
     left: '47%',
     top: '45%',
-    width: '6%',
-    height: '13%'
+    width: '175px',
+    height: '200px'
    })
 
 
@@ -61,11 +61,11 @@ $(function() {
 
   $littleRac.css({
     position: 'absolute',
-    left: '47%',
+    left: '47.5%',
     top: '65%',
-    width: '6%',
-    height: '13%'
-   })
+    width: '150px',
+    height: '120px'
+})
 
 
   // Notify the player that the fight has started
@@ -84,6 +84,7 @@ $(function() {
 
     // Set and display the health
     $health = $('#health');
+    $healthAmountElem = $('#healthAmount');
     $health.css({
       position: 'absolute',
       left: '1%',
@@ -94,15 +95,9 @@ $(function() {
     })
 
     $healthAmount = 5;
-    $healthAmountElem = $('#healthAmount');
-    $healthAmountElem.text($healthAmount).css({
-      position: 'absolute',
-      left: '10.75%',
-      top: '.1%',
-      fontSize: '4rem',
-      fontFamily: "Impact",
-      display: 'block'
-    })
+    $healthAmountElem.text($healthAmount);
+
+   
 
     
 
@@ -160,20 +155,20 @@ $(function() {
     // Feel free to change anything. I don't know if the dodging works well or not, I just hope it does cause it's pretty simple
 
     
-    var originalLeft = $littleRac.position().left;
+    var originalTop = $littleRac.position().top;
 
     // Function to move Little Rac
     function moveLittleRac(direction) {
-      var currentLeft = $littleRac.position().left;
-      var moveAmount = 50;
+      var currentTop = $littleRac.position().top;
+      var moveAmount = 100;
     
-      if (direction === "left" && currentLeft - moveAmount >= 0) {
-        $littleRac.animate({ left: "-=" + moveAmount }, 100, function() {
-          $littleRac.animate({ left: originalLeft }, 100);
+      if (direction === "up" && currentTop - moveAmount >= 0) {
+        $littleRac.animate({ top: "-=" + moveAmount }, 100, function() {
+          $littleRac.animate({ top: originalTop }, 100);
         });
-      } else if (direction === "right" && currentLeft + $littleRac.width() + moveAmount <= $arena.width()) {
-        $littleRac.animate({ left: "+=" + moveAmount }, 100, function() {
-          $littleRac.animate({ left: originalLeft }, 100);
+      } else if (direction === "down" && currentTop + $littleRac.height() + moveAmount <= $arena.height()) {
+        $littleRac.animate({ top: "+=" + moveAmount }, 100, function() {
+          $littleRac.animate({ top: originalTop }, 100);
         });
       }
     }
@@ -184,14 +179,23 @@ $(function() {
       var key = event.key;
       if (!keyPressed[key]) {
         keyPressed[key] = true;
-        if (key === "q") {
-          moveLittleRac("left");
-        } else if (key === "e") {
-          moveLittleRac("right");
+        if (key === "w") {
+          moveLittleRac("up");
+          $littleRac.attr("src", "images/littleRac-2.png");
+        } else if (key === "s") {
+          moveLittleRac("down");
         }
         setTimeout(function() {
           keyPressed[key] = false;
-        }, 100);
+        }, 500);
+      }
+    });
+
+
+    $(document).keyup(function(event) {
+      var key = event.key;
+      if (key === "w") {
+        $littleRac.attr("src", "images/littleRac.png"); 
       }
     });
 
