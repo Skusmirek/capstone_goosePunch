@@ -54,8 +54,6 @@ $(function() {
     height: '200px'
    })
 
-
-
   // Display the default image for Little Rac
 
    $littleRac = $('#littleRac');
@@ -70,7 +68,6 @@ $(function() {
     width: '150px',
     height: '120px'
 })
-
 
   // Notify the player that the fight has started
   $fightStart = $('#fightStartImage');
