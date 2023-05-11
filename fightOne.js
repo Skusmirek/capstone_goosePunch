@@ -98,8 +98,18 @@ $(function() {
     $healthAmount = 1000;
     $healthAmountElem.text($healthAmount);
 
-    // Enemy health
-    $enemyHealth = 1000;
+      // Enemy health
+      $enemyHealthAmount = 10;
+      $enemyHealthElem = $('#enemyHealth');
+      $enemyHealthElem.text("Enemy: " + $enemyHealthAmount);
+      $enemyHealthElem.css({
+        position: 'absolute',
+        left: '75%',
+        top: '.1%',
+        fontSize: '4rem',
+        fontFamily: "Impact",
+        display: 'block'
+      })
 
     // Enemy movement
     function enemyMovement() {
@@ -157,7 +167,20 @@ $(function() {
           window.location.href = "gameOver.html";
         }
       }
-        console.log(isRacAttacking);
+
+//Subtract from enemy's health
+      if (playerPos.left < enemyPos.left + $enemy.width() && 
+      playerPos.left + $player.width() > enemyPos.left && 
+      playerPos.top < enemyPos.top + $enemy.height() && 
+      playerPos.top + $player.height() > enemyPos.top && isRacAttacking == true) {
+
+      $enemyHealthAmount -=1;
+      $enemyHealthElem.text("Enemy: " + $enemyHealthAmount);
+        if($enemyHealthAmount == 0) {
+          window.location.href = "fightTwo.html";
+        }
+      }
+
     }
     // Call enemyOverlap every 50 milliseconds
     setInterval(enemyOverlap, 50);
