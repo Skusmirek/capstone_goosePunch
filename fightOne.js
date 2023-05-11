@@ -187,6 +187,7 @@ $(function() {
       }
     }
     
+    
     // Set up keydown event listener
     var keyPressed = {};
     $(document).keydown(function(event) {
