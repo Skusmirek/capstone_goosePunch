@@ -12,6 +12,7 @@ body {
   position: absolute;
   left: 40%;
   top: 60%;
+  transform: translate(-0%, -50%); 
   border-radius: 20%;
   color: lime;
   background-color: rgb(14, 13, 14);
